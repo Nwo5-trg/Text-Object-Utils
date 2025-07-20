@@ -22,11 +22,15 @@ class $modify(EditTextLayer, CustomizeObjectLayer) {
 
         m_fields->textObject = static_cast<TextGameObject*>(p0);
         m_textInput->setPositionY(m_textInput->getPositionY() - 20);
+        m_textInput->setMaxLabelLength(99999);
+    
         auto inputBG = static_cast<CCScale9Sprite*>(m_mainLayer->getChildByID("text-input-bg"));
         inputBG->setPositionY(inputBG->getPositionY() - 20);
         inputBG->setContentSize({inputBG->getContentWidth() - 40, inputBG->getContentHeight()});
+
         m_kerningLabel->setPositionY(m_kerningLabel->getPositionY() - 20);
         m_kerningSlider->setPositionY(m_kerningSlider->getPositionY() - 20);
+        
         this->getChildByIDRecursive("clear-text-button")->setPositionY(500.0f); // why not keep it? idk :3c
         
         if (Loader::get()->isModLoaded("hjfod.betteredit")) this->scheduleOnce(schedule_selector(EditTextLayer::openTextMenu), 0);
