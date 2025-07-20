@@ -64,7 +64,7 @@ class $modify(EditTextLayer, CustomizeObjectLayer) {
 
     void textChanged(CCTextInputNode* p0) {
         auto fields = m_fields.self();
-        auto str = p0->getString();
+        auto str = (std::string)p0->getString();
         // p sure geode has a util for this that ive literally used before but its fiiiiiiiine
         int pos = 0;
         while ((pos = str.find(fields->lineShortcut, pos)) != std::string::npos) {
