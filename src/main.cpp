@@ -7,6 +7,7 @@ using namespace geode::prelude;
 class $modify(EditTextLayer, CustomizeObjectLayer) {
     struct Fields {
         TextGameObject* textObject = nullptr;
+        TextInput* kerningInput = nullptr;
         bool swapCopyPaste = Mod::get()->getSettingValue<bool>("swap-copy-paste-buttons");
         std::string lineShortcut = Mod::get()->getSettingValue<std::string>("new-line-shortcut");
     };
@@ -18,7 +19,6 @@ class $modify(EditTextLayer, CustomizeObjectLayer) {
 
         auto& lineShortcut = m_fields->lineShortcut;
         if (lineShortcut.empty()) lineShortcut = "/n"; // fuck whatever user trys this
-
 
         m_fields->textObject = static_cast<TextGameObject*>(p0);
         m_textInput->setPositionY(m_textInput->getPositionY() - 20);
@@ -62,6 +62,25 @@ class $modify(EditTextLayer, CustomizeObjectLayer) {
         clearButton->setScale(0.5f);
         clearButton->m_baseScale = 0.5f;
         menu->addChild(clearButton);
+
+        auto kerningInput = TextInput::create(60.0f, "");
+        kerningInput->setCommonFilter(geode::CommonFilter::Int);
+        kerningInput->setCallback([this] (const std::string& str) {
+            if (str.empty()) return;
+
+            int kerning = numFromString<int>(str).unwrapOr(0);
+            m_kerningAmount = kerning;
+            m_kerningSlider->setValue(std::clamp(kerning + 10.0f, 0.0f, 30.0f) / 30);
+            if (m_fields->textObject) m_fields->textObject->updateTextKerning(kerning);
+
+            updateKerningLabel();
+        });
+        kerningInput->setScale(0.7f);
+        m_mainLayer->addChild(kerningInput);
+        m_textTabNodes->addObject(kerningInput);
+        m_fields->kerningInput = kerningInput;
+        m_kerningLabel->setPositionX(255.0f);
+        updateKerningLabel();
         
         return true;
     }
@@ -79,6 +98,23 @@ class $modify(EditTextLayer, CustomizeObjectLayer) {
         CustomizeObjectLayer::textChanged(p0);
     }
 
+    void updateKerningLabel() {
+        CustomizeObjectLayer::updateKerningLabel();
+        auto fields = m_fields.self();
+        if (!fields->kerningInput || !m_kerningLabel) return;
+
+        std::string str = m_kerningLabel->getString();
+        auto end = str.find(' ');
+        if (end != std::string::npos) str.erase(end);
+        m_kerningLabel->setString(str.c_str());
+
+        fields->kerningInput->setPosition(
+            m_kerningLabel->getPositionX() + (m_kerningLabel->getContentWidth() / 2), 
+            m_kerningLabel->getPositionY()
+        );
+        fields->kerningInput->setString(numToString(m_kerningAmount));
+    }
+
     void onCopyText(CCObject* sender) {
         if (m_textInput) clipboard::write(m_textInput->getString());
     }
@@ -93,5 +129,11 @@ class $modify(EditTextLayer, CustomizeObjectLayer) {
 
     void openTextMenu(float dt) {
         if (auto button = m_textButton) button->activate();
+    }
+
+    void onClose(CCObject* sender) {
+        // god just add this to the destructor or sum shi its annoying
+        if (m_fields->kerningInput) m_fields->kerningInput->getInputNode()->onClickTrackNode(false);
+        CustomizeObjectLayer::onClose(sender);
     }
 };

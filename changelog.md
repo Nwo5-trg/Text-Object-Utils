@@ -1,3 +1,7 @@
+## v1.1.0
+- **Added** kerning input
+- **Added** default shortcut is `\n` now
+
 ## v1.0.3
 - **Added** use level font (thx for the pr **ReallyNewb**)
 

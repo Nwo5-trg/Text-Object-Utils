@@ -1,5 +1,5 @@
 {
-	"geode": "4.5.0",
+	"geode": "4.8.0",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
@@ -8,11 +8,14 @@
 	},
 	"id": "nwo5.text_object_utils",
 	"name": "Text Object Utils",
-	"version": "v1.0.3",
+	"version": "v1.1.0",
 	"developer": "Nwo5",
 	"tags": ["utility", "editor", "offline"],
-	"description": "Adds some (scuffed) utils to text objects.",
-	"links": {"source": "https://github.com/Nwo5-trg/Text-Object-Utils"},
+	"description": "(scuffed) text object shenangians",
+	"links": {
+		"source": "https://github.com/Nwo5-trg/Text-Object-Utils",
+		"community": "https://discord.gg/AeFeYWGUxZ"
+	},
 	"dependencies": {
 		"geode.node-ids": ">=1.20.1"
 	},
@@ -21,8 +24,8 @@
 			"type": "string",
 			"name": "New Line Shortcut",
 			"description": "this will be replaced with a new line (dont make this something dumb no promises it wont screw up your text)",
-			"default": "/n",
-			"filter": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#_-+/&$%^~*{}()[]<>=!?@,;.:|• "
+			"default": "\\n",
+			"filter": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#_-+/&$%^~*{}()[]<>=!?@,;.:|•\\"
 		},
 		"swap-copy-paste-buttons": {
 			"type": "bool",
