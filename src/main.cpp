@@ -129,7 +129,7 @@ class $modify(EditTextLayer, CustomizeObjectLayer) {
 
     void openTextMenu(float dt) {
         if (auto button = m_textButton) button->activate();
-    }
+    } 
 
     void onClose(CCObject* sender) {
         // god just add this to the destructor or sum shi its annoying
