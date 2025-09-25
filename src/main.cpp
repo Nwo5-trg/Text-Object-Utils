@@ -160,7 +160,7 @@ class $modify(EditTextLayer, CustomizeObjectLayer) {
     }
     void onNewlineText(CCObject* sender) {
         if (!m_textInput) return;
-        auto str = m_textInput->getString();
+        std::string str = m_textInput->getString();
         str.push_back('\n');
         m_textInput->setString(str);
     }
