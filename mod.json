@@ -8,7 +8,7 @@
 	},
 	"id": "nwo5.text_object_utils",
 	"name": "Text Object Utils",
-	"version": "v1.1.0",
+	"version": "v1.2.0",
 	"developer": "Nwo5",
 	"tags": ["utility", "editor", "offline"],
 	"description": "(scuffed) text object shenangians",

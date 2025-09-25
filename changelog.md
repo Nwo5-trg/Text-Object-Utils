@@ -1,3 +1,10 @@
+## v1.2.0
+- **Added** compat w/ multi line text mod again rawr
+- **Added** newline shortcut
+- **Added** a lil bit of code cleanup kinda
+
+- **Fixed** kerning input w/ different fonts (kinda)
+
 ## v1.1.0
 - **Added** kerning input
 - **Added** default shortcut is `\n` now
